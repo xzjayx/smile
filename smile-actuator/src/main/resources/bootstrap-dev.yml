@@ -1,8 +1,4 @@
 spring:
-  security:
-    user:
-      name: admin
-      password: 123456
   profiles:
     active: dev
   application:

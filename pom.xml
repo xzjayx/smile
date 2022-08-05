@@ -31,6 +31,7 @@
         <velocity.version>2.3</velocity.version>
         <knife4j-boot-starter.version>2.0.9</knife4j-boot-starter.version>
         <spring-boot-admin-starter-server.version>2.2.0</spring-boot-admin-starter-server.version>
+        <spring-boot-admin-starter-client.version>2.2.0</spring-boot-admin-starter-client.version>
     </properties>
 
 
@@ -120,6 +121,13 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin-starter-server.version}</version>
+            </dependency>
+
+            <!--spring-boot-admin 监控中心client-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin-starter-client.version}</version>
             </dependency>
 
         </dependencies>
