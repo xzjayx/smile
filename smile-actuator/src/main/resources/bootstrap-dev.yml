@@ -1,0 +1,17 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456
+  profiles:
+    active: dev
+  application:
+    name: smile-actuator
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        file-extension: yml
+        shared-configs:
+          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
