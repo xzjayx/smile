@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
+/**
  * 鉴权管理器，用于判断是否有资源的访问权限
  * 在网关请求中主要的核心就是给认证(Authentication)通过的用户，进行鉴权(Authorization)判断看拥有那些访问权限
  * 会被在资源服务器配置网关服务进行配置安全配置用到
@@ -27,7 +27,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
 
-    /*
+    /**
     * 确定是否为特定身份验证和对象授予访问权限。
     * @para： authentication - 要检查的身份验证 object – 要检查的对象
       return：一个决定，如果无法做出决定，则为空 Mono。
