@@ -61,6 +61,7 @@
     <!-- 引入spring cloud的依赖，不能少，主要用来管理Spring Cloud生态各组件的版本 -->
     <dependencyManagement>
         <dependencies>
+            <!-- https://github.com/alibaba/spring-cloud-alibaba/wiki -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

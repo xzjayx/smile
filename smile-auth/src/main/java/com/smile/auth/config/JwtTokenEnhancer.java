@@ -16,7 +16,7 @@ import java.util.Map;
 @Component
 public class JwtTokenEnhancer implements TokenEnhancer {
 
-    /*
+    /**
     *
     * 在创建新令牌以供客户端使用的过程中，为访问令牌的定制提供机会（例如，通过其附加信息映射）。
     参数：
