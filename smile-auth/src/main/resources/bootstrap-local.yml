@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos1.4.2:8848
+        server-addr: localhost:8848
       config:
         file-extension: yml
         shared-configs:

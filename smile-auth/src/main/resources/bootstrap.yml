@@ -1,5 +1,3 @@
 spring:
-  config:
-    name: bootstrap.yml
   profiles:
     active: dev
