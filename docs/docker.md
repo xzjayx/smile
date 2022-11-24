@@ -57,7 +57,9 @@ docker exec -it <containerID> bash    #进入容器内部
     4. 配置docker开机自启
         systemctl enable docker ##开机启动
         systemctl list-unit-files|grep enabled  ##查看有多少开启自启动项： 
-    5. （可选）如果需要拉取镜像失败，可以配置不同的镜像源 https://blog.csdn.net/qq_37189082/article/details/100047697
+    5. （可选）如果需要拉取镜像失败，可以配置不同的镜像源 
+        https://blog.csdn.net/qq_37189082/article/details/100047697
+        https://www.cnblogs.com/qican/p/15507934.html
 ### 3.docker自定义网络
     @see https://www.yiibai.com/docker/network_create.html
     docker自定义一个bridge的网络，为下面相关容器都在新建的网络下允许 
@@ -73,7 +75,7 @@ docker exec -it <containerID> bash    #进入容器内部
         4.2 (必须) 允许redis外客户端连接  注释掉 # bind 127.0.0.1 
         4.3 (必须) daemonize no，将daemonize yes注释起来或者 daemonize no设置，因为该配置和docker run中-d参数冲突，会导致容器一直启动失败
         4.4 (可选) 开启redis数据持久化  appendonly yes 
-    5. docker run -d -p 6379:6379 --network smile-dev --restart=always --name redis_6.0.8 --privileged=true -v /home/redis/redis.conf:/etc/redis/redis.conf -v /home/redis/data:/data  redis:6.0.8 redis-server /etc/redis/redis.conf
+    5. docker run -d -p 6379:6379 --network smile-dev --restart=always --name redis6.0.8 --privileged=true -v /home/redis/redis.conf:/etc/redis/redis.conf -v /home/redis/data:/data  redis:6.0.8 redis-server /etc/redis/redis.conf
 ### 5.docker安装MySQL(8.0.31)
     1. docker pull mysql:${version} 如果不指定版本默认是最新版 
     2. 通过镜像Run容器container 
@@ -87,7 +89,7 @@ docker exec -it <containerID> bash    #进入容器内部
 ### 6.docker安装Nacos(1.4.2)Standalon模式dev环境
     @see https://blog.csdn.net/weixin_37701609/article/details/126641535
     1. docker search nacos
-    2. docker pull nacos/nacos-server 1.4.2
+    2. docker pull nacos/nacos-server:1.4.2
     3. 创建外部容器目录挂载  mkdir -p /home/nacos
     4. 在第三步骤下进入目录下新建application.properties 并且复制/docs/nacos_1.4.2.properties文件的内容
     5. docker run --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true  \ 
