@@ -5,6 +5,7 @@
 ### 前置知识备份
 1. centos7防火墙相关知识
 ```shell
+cat /etc/centos-release  #查看Linux系统版本
 firewall-cmd --permanent --add-port=3306/tcp	    #打开3306端口
 firewall-cmd --permanent --remove-port=3306/tcp     #关闭3306端口
 firewall-cmd --reload				    			#重载使上述命令生效
