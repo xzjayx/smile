@@ -87,15 +87,14 @@ docker exec -it <containerID> bash    #进入容器内部
         FLUSH PRIVILEGES;
         ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '1qaz2wsx@!';
     4. 由于上述第二部已经挂载了磁盘/home/mysql/conf，如果后续需要定制化MySQL可以新建 my.cnf文件和docker的Mysql容器互通有无，然后复制/docs/my.cnf内容复制进去，然后重启当前docker container
+    5. 用远程链接数据库工具或者MYSQL_Client导入Nacos的sql文件为下一步安装nacos做准备 /docs/db/smile-config.sql
 ### 6.docker安装Nacos(1.4.2)Standalon模式dev环境
     @see https://blog.csdn.net/weixin_37701609/article/details/126641535
     1. docker search nacos
     2. docker pull nacos/nacos-server:1.4.2
-    3. 创建外部容器目录挂载  mkdir -p /home/nacos
+    3. 创建外部容器目录挂载  mkdir -p /home/nacos/conf
     4. 在第三步骤下进入目录下新建application.properties 并且复制/docs/nacos_1.4.2.properties文件的内容
-    5. docker run --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true  \ 
-        -v /home/nacos/application.properties:/home/nacos/conf/application.properties   \ 
-        --restart=always -d -p 8848:8848 nacos/nacos-server:1.4.2
+    5. docker run --restart=always -d -p 8848:8848 --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true -v /home/nacos/conf:/home/nacos/conf  -v /home/nacos/logs:/home/nacos/logs  nacos/nacos-server:1.4.2
 
     
     
