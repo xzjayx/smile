@@ -15,6 +15,7 @@ firewall-cmd --zone=public --list-ports		   #查看防火墙所有开放的端�
 firewall-cmd --state	#查看防火墙状态
 ```
 2. docker常用命令
+>关于挂载V的特别说明：-v挂载需要主机和docker容器对应，如果docker容器是一个具体文件，那么主机也必须存在对应的文件，而不能是一个文件夹，挂载默认是文件夹。但也可以是文件但如果是文件那么也必须和文件对应
 ```shell
 systemctl daemon-reload   #重新加载docker配置文件
 systemctl restart/stop/start/status docker  #重启/关闭/启动/查看状态docker
@@ -89,12 +90,11 @@ docker exec -it <containerID> bash    #进入容器内部
     4. 由于上述第二部已经挂载了磁盘/home/mysql/conf，如果后续需要定制化MySQL可以新建 my.cnf文件和docker的Mysql容器互通有无，然后复制/docs/my.cnf内容复制进去，然后重启当前docker container
     5. 用远程链接数据库工具或者MYSQL_Client导入Nacos的sql文件为下一步安装nacos做准备 /docs/db/smile-config.sql
 ### 6.docker安装Nacos(1.4.2)Standalon模式dev环境
-    @see https://blog.csdn.net/weixin_37701609/article/details/126641535
     1. docker search nacos
     2. docker pull nacos/nacos-server:1.4.2
     3. 创建外部容器目录挂载  mkdir -p /home/nacos/conf
     4. 在第三步骤下进入目录下新建application.properties 并且复制/docs/nacos_1.4.2.properties文件的内容
-    5. docker run --restart=always -d -p 8848:8848 --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true -v /home/nacos/conf:/home/nacos/conf  -v /home/nacos/logs:/home/nacos/logs  nacos/nacos-server:1.4.2
+    5. docker run --restart=always -d -p 8848:8848 --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true -v /home/nacos/application.properties:/home/nacos/conf/application.properties  -v /home/nacos/logs:/home/nacos/logs  nacos/nacos-server:1.4.2
 
     
     
