@@ -7,8 +7,6 @@ common:
       namespace: @nacosNamespace@
       #share config profile
       share: ${spring.profiles.active}
-server:
-  port: 9001
 spring:
   application:
     name: smile-auth

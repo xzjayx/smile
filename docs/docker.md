@@ -95,6 +95,12 @@ docker exec -it <containerID> bash    #进入容器内部
     3. 创建外部容器目录挂载  mkdir -p /home/nacos/conf
     4. 在第三步骤下进入目录下新建application.properties 并且复制/docs/nacos_1.4.2.properties文件的内容
     5. docker run --restart=always -d -p 8848:8848 --name nacos1.4.2 --network smile-dev  --env MODE=standalon --privileged=true -v /home/nacos/application.properties:/home/nacos/conf/application.properties  -v /home/nacos/logs:/home/nacos/logs  nacos/nacos-server:1.4.2
-
+### 7.利用dockerfile构建打包springboot jar包
+    1. 用maven打包springboot项目，需要打指定的profile 例如 ddev
+    2. 编写对应的Dockerfile文件，模板配置文件见smile-auth下的dockerfile
+    3. 讲打好的包和dockerfile文件一起上传到linux环境下，记住需要放在同一目录下
+    4. 通过dockerfile先构建出一个镜像来   docker build -t smile-auth:1.0 .  
+        smile-auth是镜像名字 后面是版本号
+    5. 创建镜像完毕之后可以直接run一个容器  docker run -d -p 8100:8100 --name smile-auth1.0 --network smile-dev smile-auth:1.0
     
     
