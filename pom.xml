@@ -190,9 +190,10 @@
 
             <resource>
                 <directory>src/main/resources</directory>
-                <!-- 打包时所包含得文件,该文件不能被替换 -->
                 <includes>
+                    <!-- 启动需要加入的配置文件因为spring结合了maven指定了profile，需要手动配置-->
                     <include>jwt.jks</include>
+                    <include>logback-spring.xml</include>
                 </includes>
             </resource>
             <resource>

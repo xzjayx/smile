@@ -10,11 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  *
  * #https://blog.csdn.net/qq_45136501/article/details/127792779  https://blog.csdn.net/m0_67266787/article/details/124033785 配置文件的加载顺序
- * #http://www.qb5200.com/article/476665.html springboot结合maven配置不同环境的profile，但是这个只能配置在application.yml中，
+ * #http://www.qb5200.com/article/476665.html springboot结合maven配置不同环境的profile，
  * #如果项目中有bootstrap.yml系统参数配置则不适用 @see https://blog.csdn.net/Amy126/article/details/106016308/
  * 如果项目中非要使用，则可以参考 Maven的一些filtering特性
  *
- * #如果项目中有涉及到Nacos配置中心等 则配置文件加载顺序又不一样 https://blog.csdn.net/Lemon_MY/article/details/127335271
  *
  * VM -Dspring.profiles.active=dev
  *
