@@ -119,4 +119,135 @@
 
     </dependencyManagement>
 
+    <profiles>
+
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- default Spring profiles -->
+                <spring.profiles.active>dev</spring.profiles.active>
+                <nacosNamespace>764f9c7a-1874-4c91-985b-0678754a8208</nacosNamespace>
+                <nacosServer>192.168.56.10:8848</nacosServer>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>local</id>
+            <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>ddev</id>
+            <properties>
+                <spring.profiles.active>ddev</spring.profiles.active>
+                <nacosNamespace>74a54390-4ff2-4f7e-bc44-956281fe4866</nacosNamespace>
+                <nacosServer>nacos1.4.2:8848</nacosServer>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+
+    </profiles>
+
+
+
+    <!-- 配合profiles中配置的环境文件使用，不配置项目启动报错 主要是filtering作用 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 处理文件时替换文件中的变量 -->
+                <filtering>true</filtering>
+                <!-- 打包时所包含得文件 -->
+                <includes>
+                    <include>bootstrap.yml</include>
+                    <include>bootstrap-${spring.profiles.active}.yml</include>
+                </includes>
+            </resource>
+            <!--<resource>
+               <directory>src/main/resources</directory>
+               <excludes>
+                   &lt;!&ndash; 打包时排除文件&ndash;&gt;
+                   <exclude>bootstrap.yml</exclude>
+                   <exclude>bootstrap-dev.yml</exclude>
+                   <exclude>bootstrap-ddev.yml</exclude>
+                   <exclude>bootstrap-local.yml</exclude>
+                   <exclude>Dockerfile</exclude>
+                   <exclude>jwt.jks</exclude>
+               </excludes>
+           </resource>-->
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 打包时所包含得文件,该文件不能被替换 -->
+                <includes>
+                    <include>jwt.jks</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- 上述filtering替换有时候可能有问题
+             maven在替换变量的时候，默认${]和@@表达式均可替换，如果我们在spring 的xml配置文件中使用${}
+            也会被maven替换掉，为了避免该问题，我们可以参考spring boot的parent中的xml进行配置
+            重点是delimiter的配置，该配置主要配置变量的分隔符，我们配置为@，那么它就不会对${}产生作用了，具体说明可以
+            参考maven的官方文档 maven delimiters https://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+            <!-- 部署打包找不到主类错误 No main manifest attribute, in XXX.jar-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

@@ -82,7 +82,7 @@
     </appender>
 
     <!--开发环境:打印控制台-->
-    <springProfile name="dev,test">
+    <springProfile name="dev,ddev,local,test">
         <root level="INFO">
             <appender-ref ref="consoleAppender" />
             <appender-ref ref="fileAppender" />

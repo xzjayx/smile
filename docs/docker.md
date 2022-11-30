@@ -60,8 +60,8 @@ docker exec -it <containerID> bash    #进入容器内部
         systemctl enable docker ##开机启动
         systemctl list-unit-files|grep enabled  ##查看有多少开启自启动项： 
     5. （可选）如果需要拉取镜像失败，可以配置不同的镜像源 
-        https://blog.csdn.net/qq_37189082/article/details/100047697
-        https://www.cnblogs.com/qican/p/15507934.html
+        https://blog.csdn.net/qq_37189082/article/details/100047697     国内普通镜像
+        https://www.cnblogs.com/qican/p/15507934.html                   aliyun镜像
 ### 3.docker自定义网络
     @see https://www.yiibai.com/docker/network_create.html
     docker自定义一个bridge的网络，为下面相关容器都在新建的网络下允许 
