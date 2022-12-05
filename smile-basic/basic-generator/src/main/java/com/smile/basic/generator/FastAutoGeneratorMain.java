@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.smile.basic.generator.engine.CustomizeFreemarkerTemplateEngine;
 import com.smile.basic.generator.fo.CustomizeFo;
 import com.smile.basic.generator.util.GeneratorUtil;
@@ -124,7 +125,7 @@ public class FastAutoGeneratorMain {
                     builder.controller("templates/controller.java");
                 })
                 //自定义模板生成前端代码vue
-                .injectionConfig(builder -> {
+                /*.injectionConfig(builder -> {
                     builder.beforeOutputFile((TableInfo tableInfo, Map<String, Object> objectMap) -> {
                         System.out.println("tableInfo: " + tableInfo.getEntityName() +
                                 " objectMap: " + objectMap.size());
@@ -139,10 +140,11 @@ public class FastAutoGeneratorMain {
                     }).customMap(customMap).customFile(customFile);
                     //自定义配置给定的一个后面可以自行去拿出来用于自定义参数等等
                     // 这里涉及到前端的vue代码的生成
-                })
+                })*/
                 //new FreemarkerTemplateEngine()
-                .templateEngine(new CustomizeFreemarkerTemplateEngine())
-                //.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                //.templateEngine(new CustomizeFreemarkerTemplateEngine())
+                // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                .templateEngine(new FreemarkerTemplateEngine())
                 .execute();
 
 
