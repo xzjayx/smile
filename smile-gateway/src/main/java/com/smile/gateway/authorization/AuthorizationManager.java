@@ -2,7 +2,7 @@ package com.smile.gateway.authorization;
 
 import cn.hutool.core.convert.Convert;
 import com.smile.basic.core.constant.GlobalConstants;
-import com.smile.basic.redis.constant.RedisConstant;
+import com.smile.basic.redis.constant.AuthConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -36,7 +36,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
         //从Redis中获取当前路径可访问角色列表
         URI uri = authorizationContext.getExchange().getRequest().getURI();
-        Object obj = redisTemplate.opsForHash().get(RedisConstant.RESOURCE_ROLES_MAP, uri.getPath());
+        Object obj = redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
         List<String> authorities = Convert.toList(String.class,obj);
         authorities = authorities.stream().map(i -> i = GlobalConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径

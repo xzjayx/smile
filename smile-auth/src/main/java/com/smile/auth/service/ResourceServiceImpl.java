@@ -1,7 +1,7 @@
 package com.smile.auth.service;
 
 import cn.hutool.core.collection.CollUtil;
-import com.smile.basic.redis.constant.RedisConstant;
+import com.smile.basic.redis.constant.AuthConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,6 @@ public class ResourceServiceImpl {
         resourceRolesMap.put("/api/hello/adminHello", CollUtil.toList("ADMIN"));
         resourceRolesMap.put("/api/user/currentUser", CollUtil.toList("ADMIN", "TEST"));
         resourceRolesMap.put("/api/test/testHello", CollUtil.toList( "TEST"));
-        redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
+        redisTemplate.opsForHash().putAll(AuthConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
     }
 }

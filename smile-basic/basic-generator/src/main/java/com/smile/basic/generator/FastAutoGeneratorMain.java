@@ -56,7 +56,7 @@ public class FastAutoGeneratorMain {
 
 
         List<String> tables = new ArrayList<>();
-        tables.add("sys_demo");
+        tables.add("demo");
         //tables.add("p_question");
         //tables.add("p_answer");
         //tables.add("p_correct");
