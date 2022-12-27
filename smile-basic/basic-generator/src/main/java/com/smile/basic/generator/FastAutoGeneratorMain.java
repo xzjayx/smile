@@ -57,7 +57,7 @@ public class FastAutoGeneratorMain {
 
 
         List<String> tables = new ArrayList<>();
-        tables.add("demo");
+        tables.add("sys_demo");
         //tables.add("p_question");
         //tables.add("p_answer");
         //tables.add("p_correct");
@@ -95,13 +95,15 @@ public class FastAutoGeneratorMain {
                 .strategyConfig(builder -> {
                     // 设置需要生成的表名
                     builder.addInclude(tables)
+                            // 设置过滤表前缀 有些表明是根据服务来区分的，比如sys_demo表名，可以直接吧sys_表名前缀过滤
                             .addTablePrefix(model.concat("_"))
                             .serviceBuilder()
-                            //.fileOverride()
+                            // 覆盖已有文件
+                            .fileOverride()
                             .formatServiceFileName("%sService")
                             .formatServiceImplFileName("%sServiceImpl")
                             .entityBuilder()
-                            //.fileOverride()
+                            .fileOverride()
                             .enableLombok()
                             .logicDeleteColumnName("deleted")
                             .enableTableFieldAnnotation()
@@ -124,8 +126,8 @@ public class FastAutoGeneratorMain {
                     builder.entity("templates/entity.java");
                     builder.controller("templates/controller.java");
                 })
-                //自定义模板生成前端代码vue
-                /*.injectionConfig(builder -> {
+                //自定义模板生成前端代码vue qo等等一些自定义的模板
+                .injectionConfig(builder -> {
                     builder.beforeOutputFile((TableInfo tableInfo, Map<String, Object> objectMap) -> {
                         System.out.println("tableInfo: " + tableInfo.getEntityName() +
                                 " objectMap: " + objectMap.size());
@@ -140,11 +142,11 @@ public class FastAutoGeneratorMain {
                     }).customMap(customMap).customFile(customFile);
                     //自定义配置给定的一个后面可以自行去拿出来用于自定义参数等等
                     // 这里涉及到前端的vue代码的生成
-                })*/
-                //new FreemarkerTemplateEngine()
-                //.templateEngine(new CustomizeFreemarkerTemplateEngine())
+                })
+
+                .templateEngine(new CustomizeFreemarkerTemplateEngine())
                 // 使用Freemarker引擎模板，默认的是Velocity引擎模板
-                .templateEngine(new FreemarkerTemplateEngine())
+                //.templateEngine(new FreemarkerTemplateEngine())
                 .execute();
 
 

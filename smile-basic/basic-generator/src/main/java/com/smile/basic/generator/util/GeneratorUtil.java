@@ -2,6 +2,7 @@ package com.smile.basic.generator.util;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 
 /**
  * mybatis-plus 代码生成封装工具类

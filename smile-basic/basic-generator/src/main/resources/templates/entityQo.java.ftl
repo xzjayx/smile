@@ -8,6 +8,13 @@ import io.swagger.annotations.ApiModelProperty;
 <#if entityLombokModel>
 import lombok.Data;
 </#if>
+<#assign onceDecimal="true"/>
+<#list table.fields as field>
+    <#if field.propertyType == "BigDecimal" && onceDecimal == "true">
+import java.math.BigDecimal;
+        <#assign onceDecimal="false"/>
+    </#if>
+</#list>
 
 /**
 * <p>

@@ -194,6 +194,7 @@
                     <!-- 启动需要加入的配置文件因为spring结合了maven指定了profile，需要手动配置-->
                     <include>jwt.jks</include>
                     <include>logback-spring.xml</include>
+                    <include>**/*.ftl</include>
                 </includes>
             </resource>
             <resource>
