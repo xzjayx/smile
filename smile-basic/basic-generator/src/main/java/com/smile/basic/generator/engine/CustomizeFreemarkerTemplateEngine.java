@@ -26,7 +26,7 @@ public class CustomizeFreemarkerTemplateEngine extends FreemarkerTemplateEngine 
         Map<String, String> customFilePath = (Map<String, String>)objectMap.get("customFilePathMap");
         customFile.forEach((key, value) -> {
             String otherPath = customFilePath.get(key);
-            String fileName = String.format((otherPath + "/" + "%s"), tableInfo.getEntityName().concat(key));
+            String fileName = String.format((otherPath + File.separator + "%s"), tableInfo.getEntityName().concat(key));
             //getConfigBuilder().getInjectionConfig().isFileOverride()
             outputFile(new File(fileName), objectMap, value, true);
         });

@@ -1,28 +1,10 @@
-spring:
-  application:
-    name: smile-sys
-  profiles:
-    active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: nacos1.4.2:8848
-      config:
-        file-extension: yml
-        shared-configs:
-          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-
-
-
-
-
-
+#spring:
 #  datasource:
 #    type: com.zaxxer.hikari.HikariDataSource #springboot2.x之后默认
 #    # serverTimezone=GMT%2B8 默认北京时区 useSSL=false 测试不用服务器的验证证书生产需要打开配置
-#    url: jdbc:mysql://127.0.0.1:3306/smile?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://192.168.56.10:3306/smile_sys?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
 #    username: root
-#    password: root
+#    password: 1qaz2wsx@!
 #    # 8.0之后用cj
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    hikari:
@@ -52,20 +34,7 @@ spring:
 #      connection-timeout: 30000
 #  jackson:
 #    default-property-inclusion: ALWAYS
-#mybatis-plus:
-#  configuration:
-#    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用，不能输出到文件,假如需要输出到日志文件中那么 https://www.jb51.net/article/239936.htm
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #
-##启用knife4j增强模式
-#knife4j:
-#  enable: true
-#  #生产模式屏蔽, true将禁止访问API在线文档, false可以看到文档, 密码失效
-#  production: false
-#  basic:
-#    enable: true
-#    username: root
-#    password: root
 #smile:
 #  sys:
 #    #配置白名单路径,专供admin模块服务
@@ -80,10 +49,17 @@ spring:
 #        - "/favicon.ico"
 #        - "/user/**"
 #server:
-#  port: 8101  #被云nacos分布式配置覆盖
-
-
-
-
-
-
+#  port: 8110
+##启用knife4j增强模式
+#knife4j:
+#  enable: true
+#  #生产模式屏蔽, true将禁止访问API在线文档, false可以看到文档, 密码失效
+#  production: false
+#  basic:
+#    enable: true
+#    username: root
+#    password: root
+#mybatis-plus:
+#  configuration:
+#    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用，不能输出到文件,假如需要输出到日志文件中那么 https://www.jb51.net/article/239936.htm
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

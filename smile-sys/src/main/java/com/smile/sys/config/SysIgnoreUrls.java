@@ -3,7 +3,10 @@ package com.smile.sys.config;
 
 import com.smile.basic.core.constant.EnvConstants;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,9 +14,11 @@ import java.util.List;
 /**
  * @author mi
  */
-@Data
-@Component
+
+@Configuration
 @ConfigurationProperties(prefix = EnvConstants.SYS_IGNORE_URL_PREFIX)
+@Getter
+@Setter
 public class SysIgnoreUrls {
 
     /**

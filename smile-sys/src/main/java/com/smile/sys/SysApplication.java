@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+
 @SpringBootApplication(scanBasePackages = {GlobalConstants.BASIC_CORE_SCAN, SysConstants.SMILE_SYS_SCAN})
 public class SysApplication {
 

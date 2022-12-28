@@ -1,23 +1,23 @@
-spring:
-  boot:
-    admin:
-      client:
-        # 如果不是在同一个节点，只要使用内网地址和端口即可，容器部署需要将容器端口映射到宿主机
-        # springboot admin server 地址
-        url: http://127.0.0.1:8090
-        # springboot admin client 地址
-  application:
-    name: smile-sys
-  profiles:
-    active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-      config:
-        file-extension: yml
-        shared-configs:
-          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#spring:
+#  boot:
+#    admin:
+#      client:
+#        # 如果不是在同一个节点，只要使用内网地址和端口即可，容器部署需要将容器端口映射到宿主机
+#        # springboot admin server 地址
+#        url: http://127.0.0.1:8090
+#        # springboot admin client 地址
+#  application:
+#    name: smile-sys
+#  profiles:
+#    active: dev
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#      config:
+#        file-extension: yml
+#        shared-configs:
+#          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
 
 
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smile.sys.mapper.DemoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smile.sys.entity.Demo">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="age" property="age" />
+        <result column="money" property="money" />
+        <result column="money1" property="money1" />
+        <result column="sn" property="sn" />
+        <result column="active" property="active" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, age, money, money1, sn, active
+    </sql>
+
+</mapper>
