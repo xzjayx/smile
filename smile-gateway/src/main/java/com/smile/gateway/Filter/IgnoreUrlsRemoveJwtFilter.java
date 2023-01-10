@@ -49,22 +49,4 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         return chain.filter(exchange);
     }
 
-
-    public static void main(String[] args) {
-        String url = "/smile-auth/actuator";
-        PathMatcher pathMatcher = new AntPathMatcher();
-        List<String> ignoreUrls = new ArrayList<>();
-        ignoreUrls.add("/**/actuator/**");
-        ignoreUrls.add("/auth/oauth/token");
-        ignoreUrls.add("/smile-sys/**");
-
-        for (String ignoreUrl : ignoreUrls) {
-            if (pathMatcher.match(ignoreUrl, url)) {
-                System.out.println("过滤");
-            }
-        }
-    }
-
-
-
 }
