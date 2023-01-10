@@ -48,8 +48,9 @@ public class UserController {
     @ApiOperationSupport(order = 10)
     @ApiImplicitParam(name = "id", value = "主键id", required = true, paramType = "path", dataType = "String")
     @GetMapping("/{id}")
-    public Result<User> getUserById(@PathVariable String id){
-        return Result.success(userService.getById(id));
+    public Result<Object> getUserById(@PathVariable String id){
+        //return Result.success(userService.getById(id));
+        return Result.success("hello world");
     }
 
 

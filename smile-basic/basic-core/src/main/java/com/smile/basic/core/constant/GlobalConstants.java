@@ -10,6 +10,7 @@ public interface GlobalConstants {
 
     public static final String BASIC_CORE_SCAN = "com.smile.basic.core.config.**";
 
+
     public static final String SMILE_API_SCAN = "com.smile.api.*.feign";
 
     public static final String AUTHORITY_PREFIX = "ROLE_";

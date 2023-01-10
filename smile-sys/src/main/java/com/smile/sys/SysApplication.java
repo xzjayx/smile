@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 
-@SpringBootApplication(scanBasePackages = {GlobalConstants.BASIC_CORE_SCAN, SysConstants.SMILE_SYS_SCAN})
+@SpringBootApplication(scanBasePackages = {GlobalConstants.BASIC_CORE_SCAN,
+        SysConstants.SMILE_SYS_SCAN})
 public class SysApplication {
 
     //TODO 1 完善user配合knife4j,配合版本接口文档和参数,并且自定义模板
@@ -20,8 +21,8 @@ public class SysApplication {
         SysIgnoreUrls bean = run.getBean(SysIgnoreUrls.class);
         bean.getUrls().forEach(System.out::println);
         System.out.println(bean.getCheck());
-        OpenApiExtensionResolver action = run.getBean(OpenApiExtensionResolver.class);
-        System.out.println(action);
+        /*OpenApiExtensionResolver action = run.getBean(OpenApiExtensionResolver.class);
+        System.out.println(action);*/
 
     }
 }

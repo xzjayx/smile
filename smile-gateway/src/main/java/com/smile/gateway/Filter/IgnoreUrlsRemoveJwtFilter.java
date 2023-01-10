@@ -14,10 +14,14 @@ import reactor.core.publisher.Mono;
 
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 白名单路径访问时需要移除JWT请求头 因为白名单本来就不需要认证所以不需要token头
+ * https://blog.csdn.net/kimichen123/article/details/121028212  WebFilter 和GlobalFilter区域
+ * AntPathMatcher URL匹配规则
+ * https://code84.com/289261.html
  */
 @Component
 @Slf4j
@@ -44,4 +48,23 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         }
         return chain.filter(exchange);
     }
+
+
+    public static void main(String[] args) {
+        String url = "/smile-auth/actuator";
+        PathMatcher pathMatcher = new AntPathMatcher();
+        List<String> ignoreUrls = new ArrayList<>();
+        ignoreUrls.add("/**/actuator/**");
+        ignoreUrls.add("/auth/oauth/token");
+        ignoreUrls.add("/smile-sys/**");
+
+        for (String ignoreUrl : ignoreUrls) {
+            if (pathMatcher.match(ignoreUrl, url)) {
+                System.out.println("过滤");
+            }
+        }
+    }
+
+
+
 }

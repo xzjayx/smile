@@ -45,15 +45,15 @@ import java.util.List;
    三个注解都可以指定生成的构造方法的访问权限，同时，第二个注解还可以用@RequiredArgsConstructor(staticName="methodName")
 的形式生成一个指定名称的静态方法，返回一个调用相应的构造方法产生的对象
  *
- *   自定义是否加载: 主要让网关gateway 不加载
+ *   自定义是否加载: 主要让网关gateway 不加载, 有些模块可以如果不想加载knife4j可以不加载
 *                     knife4j:
  *                     smile:
  *                       enable: true
  *
  * */
+
 @Configuration
 @EnableSwagger2WebMvc
-@RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "knife4j.smile",name = "enable",havingValue = "true")
 public class Knife4jConfiguration {
 
@@ -94,7 +94,13 @@ public class Knife4jConfiguration {
      */
     private String version = "1.0.0";
 
+    /*引入Knife4j提供的扩展类*/
     private final OpenApiExtensionResolver openApiExtensionResolver;
+
+    @Autowired
+    public Knife4jConfiguration(OpenApiExtensionResolver openApiExtensionResolver) {
+        this.openApiExtensionResolver = openApiExtensionResolver;
+    }
 
 
 
@@ -130,7 +136,7 @@ public class Knife4jConfiguration {
 
         String groupName = "1.0.0";
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .host(host)
+                //.host(host)
                 .apiInfo(apiInfo())
                 //如果存在多个 Docket 实例，则每个实例都必须具有此方法提供的唯一 groupName。默认为“默认”。
                 .groupName(groupName)
@@ -140,6 +146,7 @@ public class Knife4jConfiguration {
                 .build()
                 //引入oauth2.0模式
                 //.securityContexts(securityContexts).securitySchemes(securitySchemes)
+                //赋予插件体系
                 .extensions(openApiExtensionResolver.buildExtensions(groupName));
         return docket;
     }

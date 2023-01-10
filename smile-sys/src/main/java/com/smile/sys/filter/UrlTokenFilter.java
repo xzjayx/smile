@@ -1,3 +1,4 @@
+/*
 package com.smile.sys.filter;
 
 import cn.hutool.core.collection.CollUtil;
@@ -22,14 +23,23 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+*/
 /**
- *   过滤配置的白名单，如果属性白名单内部，则不判断token请求头
+ *  暂时废弃，可以直接考虑到写到整个网关的白名单中，如果后续有这样的需求在拓展。
+ *  过滤配置的白名单，如果属性白名单内部，则不判断token请求头
  *  String ant 匹配  白名单 URL: 属于里面的直接走，不属于的在经过Token过滤头
  *  假设默认情况下，白名单配置过并且URL有匹配，则直接过滤不会校验Token，如果不满足则在判断是否有token
  *  gateway的网关的白名单过滤失效和admin服务白名单服务过滤 ordered导致该过滤器会先执行
  *  https://www.csdn.net/tags/MtTaYg5sMzQ4NjItYmxvZwO0O0OO0O0O.html
  *  http://t.zoukankan.com/java-spring-p-12742984.html
- * */
+ * 因为和gateway有冲突性，则这里做一些标志性判断自定义处理逻辑
+ * 1 以Sys Ignore URLs 和 Gateway Ignore URL，取两集合的全集(去重)
+ * 2 以Sys Ignore URLs 为准
+ * 3 以Gateway Ignore URLs 为准
+ * 4 以Sys Ignore URLs 和 Gateway Ignore URL，取两集合的交集，取出相同的URL
+ * default EnvConstants.CHECK_DEFAULT
+ * *//*
+
 @Slf4j
 @Component
 @WebFilter(urlPatterns = EnvConstants.URL_PERMIT_ALL, filterName = "urlTokenFilter")
@@ -77,6 +87,7 @@ public class UrlTokenFilter implements Filter, Ordered {
         boolean flag = !CollUtil.isEmpty(permit) && permit.stream().anyMatch(x ->
                 new AntPathMatcher().match(x, req.getRequestURI()));
         if(flag || TokenUtil.isUserExist(loginUserHolder.getCurrentUser())){
+            log.info("Not right case");
             chain.doFilter(request,response);
         }else{
             ResponseUtil.OutUnauthorized(resp);
@@ -88,3 +99,4 @@ public class UrlTokenFilter implements Filter, Ordered {
         return 0;
     }
 }
+*/
