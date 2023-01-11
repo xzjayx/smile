@@ -7,6 +7,7 @@ spring:
         locator:
           #开启从注册中心动态创建路由的功能和给定routes:冲突，一般情况下来说这里为true了下方 routes:不应该出现，因为这里标识为根据默认的服务名来过滤
           #例如注册中心有个服务名叫smile-sys，那么默认就会以/smile-sys/** URL路径去匹配，然后以StripPrefix=1去过滤当前普配谓词。
+          #如果我们的配置了 server.servlet.context-path 属性，这会导致自动路由失败的问题
           enabled: true
           #使用小写服务名，默认是大写
           lower-case-service-id: true

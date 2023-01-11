@@ -173,6 +173,8 @@
                 <includes>
                     <include>bootstrap.yml</include>
                     <include>bootstrap-${spring.profiles.active}.yml</include>
+                    <include>application.yml</include>
+                    <include>application-${spring.profiles.active}.yml</include>
                 </includes>
             </resource>
             <!--<resource>

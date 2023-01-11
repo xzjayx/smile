@@ -17,13 +17,12 @@ spring:
     nacos:
       discovery:
         server-addr: ${common.nacos.config.server}
+        namespace: ${common.nacos.config.namespace:public}
       config:
         file-extension: yml
         shared-configs:
           - data-id: application-${common.nacos.config.share}.${spring.cloud.nacos.config.file-extension}
         server-addr: ${common.nacos.config.server}
         namespace: ${common.nacos.config.namespace:public}
-
-
 
 

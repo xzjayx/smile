@@ -1,23 +1,4 @@
-server:
-  port: 9527
-spring:
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true #开启从注册中心动态创建路由的功能默认为微服务名称xxx-server；gatewayapplication有feign自动做负载均衡;不需要定制化显式配置；已生成默认的id=xservice,uri: lb://xserver , path=/serviceId/**
-          lower-case-service-id: true #使用小写服务名，默认是大写
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: 'http://localhost:8100/rsa/publicKey' #配置RSA的公钥访问地址
-  redis:
-    database: 0
-    port: 6379
-    host: localhost
-    password:
 
 smile:
   gateway:
@@ -26,3 +7,6 @@ smile:
         - "/**/actuator/**"
         - "/auth/oauth/token"
         - "/smile-sys/user/**"
+        - "/doc.html"
+        - "/webjars/**"
+        - "/swagger-resources/**"

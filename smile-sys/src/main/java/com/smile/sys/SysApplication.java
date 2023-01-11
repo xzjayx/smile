@@ -18,10 +18,10 @@ public class SysApplication {
     // 3 完善oauth2.0 查询到数据库
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(SysApplication.class, args);
-        SysIgnoreUrls bean = run.getBean(SysIgnoreUrls.class);
+        /*SysIgnoreUrls bean = run.getBean(SysIgnoreUrls.class);
         bean.getUrls().forEach(System.out::println);
         System.out.println(bean.getCheck());
-        /*OpenApiExtensionResolver action = run.getBean(OpenApiExtensionResolver.class);
+        OpenApiExtensionResolver action = run.getBean(OpenApiExtensionResolver.class);
         System.out.println(action);*/
 
     }

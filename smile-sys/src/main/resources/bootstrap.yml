@@ -17,6 +17,7 @@ spring:
     nacos:
       discovery:
         server-addr: ${common.nacos.config.server}
+        namespace: ${common.nacos.config.namespace:public}
       config:
         file-extension: yml
         shared-configs:
