@@ -59,12 +59,6 @@
         </dependency>
 
 
-        <!-- 排除提示白名单配置IgnoreUrlsConfig Spring Boot Configuration Annotation Processor not configured @ConfigurationProperties-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.smile</groupId>
             <artifactId>basic-core</artifactId>

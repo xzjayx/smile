@@ -1,3 +1,46 @@
+server:
+  port: 9527
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #开启从注册中心动态创建路由的功能为true 表明会根据默认的服务名来过滤
+          #例如注册中心有个服务名叫smile-sys，那么默认就会以/smile-sys/** URL路径去匹配然后以StripPrefix=1去过滤当前匹配。
+          enabled: true
+          #使用小写服务名，默认是大写
+          lower-case-service-id: true
+      #配置路由路径 id要唯一 uri: 从注册中心动态找服务名称 lb: 为load balance predicates断言path url以配置的匹配，filters过滤 截取第一个例如
+      routes:
+        - id: smile-sys
+          uri: lb://smile-sys
+          predicates:
+            - Path=/smile-sys/**
+          filters:
+            - StripPrefix=1
+            - SwaggerHeaderFilter
+        - id: smile-auth-resource
+          uri: lb://smile-auth-resource
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+        - id: smile-auth
+          uri: lb://smile-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:8100/rsa/publicKey' #配置RSA的公钥访问地址
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+
 
 
 smile:
@@ -6,7 +49,9 @@ smile:
       urls: #配置白名单路径：可以从网关访问但是这几个匹配的URL可以不经过token认证
         - "/**/actuator/**"
         - "/auth/oauth/token"
+        - "/auth/rsa/publicKey"
         - "/smile-sys/user/**"
         - "/doc.html"
         - "/webjars/**"
         - "/swagger-resources/**"
+        - "/**/v2/api-docs/**"

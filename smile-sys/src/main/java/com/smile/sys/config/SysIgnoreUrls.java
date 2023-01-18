@@ -13,6 +13,22 @@ import java.util.List;
 
 /**
  * @author mi
+ *
+ * 暂时废弃 对应配置文件也废弃，统一入口白名单，从gateway入口来配置
+ * @see com.smile.basic.core.config.common.IgnoreUrlsConfig
+ * #smile:
+ * #  sys:
+ * #    #配置白名单路径,专供admin模块服务
+ * #    ignore:
+ * #      check: "1"
+ * #      urls:
+ * #        - "/actuator/**"
+ * #        - "/doc.html"
+ * #        - "/webjars/**"
+ * #        - "/swagger-resources/**"
+ * #        - "/v2/api-docs"
+ * #        - "/favicon.ico"
+ * #        - "/user/**"
  */
 
 @Configuration

@@ -4,6 +4,7 @@ package com.smile.basic.core.config.common;
 import cn.hutool.core.collection.CollectionUtil;
 import com.github.xiaoymin.knife4j.core.extend.OpenApiExtendSetting;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,13 +95,7 @@ public class Knife4jConfiguration {
      */
     private String version = "1.0.0";
 
-    /*引入Knife4j提供的扩展类*/
-    private final OpenApiExtensionResolver openApiExtensionResolver;
 
-    @Autowired
-    public Knife4jConfiguration(OpenApiExtensionResolver openApiExtensionResolver) {
-        this.openApiExtensionResolver = openApiExtensionResolver;
-    }
 
 
 
@@ -110,26 +105,25 @@ public class Knife4jConfiguration {
     @Bean
     public Docket docket() {
         //schema
-//        List<GrantType> grantTypes=new ArrayList<>();
-//        //密码模式
-//        String passwordTokenUrl="http://127.0.0.1:9527/auth/oauth/token";
-//        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant=new ResourceOwnerPasswordCredentialsGrant(passwordTokenUrl);
-//        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
-//
-//        OAuth oAuth=new OAuthBuilder().name("oauth2")
-//                .grantTypes(grantTypes).build();
-//        //context
-//        //scope方位
-//        List<AuthorizationScope> scopes=new ArrayList<>();
-//        scopes.add(new AuthorizationScope("read","read all resources"));
-//        SecurityReference securityReference=new SecurityReference("oauth2",
-//                scopes.toArray(new AuthorizationScope[]{}));
-//        SecurityContext securityContext=new SecurityContext(CollectionUtil.
-//                newArrayList(securityReference),PathSelectors.ant("/api/**"));
-//        //schemas
-//        List<SecurityScheme> securitySchemes=CollectionUtil.newArrayList(oAuth);
-//        //securyContext
-//        List<SecurityContext> securityContexts=CollectionUtil.newArrayList(securityContext);
+        List<GrantType> grantTypes=new ArrayList<>();
+        //密码模式
+        String passwordTokenUrl="http://127.0.0.1:9527/auth/oauth/token";
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant=new ResourceOwnerPasswordCredentialsGrant(passwordTokenUrl);
+        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
+        OAuth oAuth=new OAuthBuilder().name("oauth2")
+                .grantTypes(grantTypes).build();
+        //context
+        //scope方位
+        List<AuthorizationScope> scopes=new ArrayList<>();
+        scopes.add(new AuthorizationScope("read","read  resources"));
+        scopes.add(new AuthorizationScope("write","write resources"));
+
+        SecurityReference securityReference=new SecurityReference("oauth2",scopes.toArray(new AuthorizationScope[]{}));
+        SecurityContext securityContext=new SecurityContext(Lists.newArrayList(securityReference),PathSelectors.ant("/api/**"));
+        //schemas
+        List<SecurityScheme> securitySchemes=Lists.newArrayList(oAuth);
+        //securyContext
+        List<SecurityContext> securityContexts=Lists.newArrayList(securityContext);
 
 
 
@@ -137,17 +131,19 @@ public class Knife4jConfiguration {
         String groupName = "1.0.0";
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 //.host(host)
-                .apiInfo(apiInfo())
                 //如果存在多个 Docket 实例，则每个实例都必须具有此方法提供的唯一 groupName。默认为“默认”。
-                .groupName(groupName)
+                //.groupName(groupName)
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
+                .securityContexts(securityContexts)
+                .securitySchemes(securitySchemes)
+                .apiInfo(apiInfo());
                 //引入oauth2.0模式
                 //.securityContexts(securityContexts).securitySchemes(securitySchemes)
                 //赋予插件体系
-                .extensions(openApiExtensionResolver.buildExtensions(groupName));
+
         return docket;
     }
 

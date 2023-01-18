@@ -17,13 +17,20 @@
     </properties>
 
     <dependencies>
+
+        <!-- 排除提示白名单配置IgnoreUrlsConfig Spring Boot Configuration Annotation Processor not configured @ConfigurationProperties-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
         <!-- 基础web启动-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- 整合knife4j依赖底层也是swagger-ui -->
+        <!-- 整合knife4j依赖底层也是swagger-ui 包含了一个前端UI得 以及 knife4j-micro-spring-boot-starter  -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>

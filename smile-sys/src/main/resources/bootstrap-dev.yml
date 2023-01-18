@@ -1,3 +1,15 @@
+#启用knife4j增强模式
+knife4j:
+  #启用knife4j的配置@Configuration
+  smile:
+    enable: true
+  enable: true
+
+
+
+
+
+
 #spring:
 #  datasource:
 #    type: com.zaxxer.hikari.HikariDataSource #springboot2.x之后默认
