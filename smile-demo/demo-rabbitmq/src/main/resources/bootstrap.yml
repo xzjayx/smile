@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: demo-rabbitmq

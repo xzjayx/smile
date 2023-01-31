@@ -6,6 +6,7 @@ import com.smile.basic.core.base.Result;
 import com.smile.basic.core.constant.MessageConstant;
 import com.smile.basic.core.dto.sys.UserDTO;
 import com.smile.basic.core.enums.ResultEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
  * 用户管理业务类
  * 这段代码主要是spring security 给我们提供查询用户的
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //这里查询数据库
         Result<UserDTO> result = userFeignClient.loadUserByUsername(username);
-        System.out.println(result);
+        log.info("UserDTO==>{}",result);
         if (!result.getCode().equals(ResultEnum.SUCCESS.getCode())) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }

@@ -99,14 +99,20 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     /** 允许客户端发起表单请求*/
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                //开启/oauth/token_key验证端口认证权限访问
-                //.tokenKeyAccess("isAuthenticated()")    不会用到的 分布式 + 非jwt 就需要开启 /oauth/check_token
-                // 是的，它资源服务器也是调用的授权服务的/oauth/check_token端点，校验的token
-                //开启/oauth/check_token验证端口认证权限访问
-                //.checkTokenAccess("isAuthenticated()")
+        //开启/oauth/token_key验证端口认证权限访问
+        //.tokenKeyAccess("isAuthenticated()")    不会用到的 分布式 + 非jwt 就需要开启 /oauth/check_token
+        // 是的，它资源服务器也是调用的授权服务的/oauth/check_token端点，校验的token
+        //开启/oauth/check_token验证端口认证权限访问
+        //.checkTokenAccess("isAuthenticated()")
+        // 允许客户端发起表单请求
+        //.allowFormAuthenticationForClients();
 
-                .allowFormAuthenticationForClients();
+        security.allowFormAuthenticationForClients()
+                .passwordEncoder(passwordEncoder)
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
+
+
     }
 
     /*

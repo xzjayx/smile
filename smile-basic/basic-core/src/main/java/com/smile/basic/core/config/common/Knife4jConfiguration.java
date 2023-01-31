@@ -104,30 +104,6 @@ public class Knife4jConfiguration {
 
     @Bean
     public Docket docket() {
-        //schema
-        List<GrantType> grantTypes=new ArrayList<>();
-        //密码模式
-        String passwordTokenUrl="http://127.0.0.1:9527/auth/oauth/token";
-        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant=new ResourceOwnerPasswordCredentialsGrant(passwordTokenUrl);
-        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
-        OAuth oAuth=new OAuthBuilder().name("oauth2")
-                .grantTypes(grantTypes).build();
-        //context
-        //scope方位
-        List<AuthorizationScope> scopes=new ArrayList<>();
-        scopes.add(new AuthorizationScope("read","read  resources"));
-        scopes.add(new AuthorizationScope("write","write resources"));
-
-        SecurityReference securityReference=new SecurityReference("oauth2",scopes.toArray(new AuthorizationScope[]{}));
-        SecurityContext securityContext=new SecurityContext(Lists.newArrayList(securityReference),PathSelectors.ant("/api/**"));
-        //schemas
-        List<SecurityScheme> securitySchemes=Lists.newArrayList(oAuth);
-        //securyContext
-        List<SecurityContext> securityContexts=Lists.newArrayList(securityContext);
-
-
-
-
         String groupName = "1.0.0";
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 //.host(host)
@@ -137,13 +113,7 @@ public class Knife4jConfiguration {
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
-                .securityContexts(securityContexts)
-                .securitySchemes(securitySchemes)
                 .apiInfo(apiInfo());
-                //引入oauth2.0模式
-                //.securityContexts(securityContexts).securitySchemes(securitySchemes)
-                //赋予插件体系
-
         return docket;
     }
 

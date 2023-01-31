@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 public class RestAuthenticationEntryPointHandler implements ServerAuthenticationEntryPoint {
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException e) {
+        System.out.println(exchange.getRequest().getURI());
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);

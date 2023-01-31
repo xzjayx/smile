@@ -12,7 +12,8 @@ firewall-cmd --reload				    			#重载使上述命令生效
 firewall-cmd --query-port=3306/tcp       	    	#查询3306端口是否开放
 systemctl stop firewalld.service			   #若嫌麻烦可以直接关闭防火墙，安全性自行评估
 firewall-cmd --zone=public --list-ports		   #查看防火墙所有开放的端口
-firewall-cmd --state	#查看防火墙状态
+firewall-cmd --state	    #查看防火墙状态
+systemctl status firewalld  #查看防火墙状态
 ```
 2. docker常用命令
 >关于挂载V的特别说明：-v挂载需要主机和docker容器对应，如果docker容器是一个具体文件，那么主机也必须存在对应的文件，而不能是一个文件夹，挂载默认是文件夹。但也可以是文件但如果是文件那么也必须和文件对应
@@ -24,6 +25,7 @@ docker ps -a                          #查看所有的container
 docker ps -a -q                       #查看所有的容器id
 docker stop/start <containerID>       #停止/运行给定的容器id的容器。
 docker stop/start $(docker ps -a -q)  #停止/运行所有容器。
+docker rm <imagesId>                  #删除给定的镜像id的镜像。
 docker rm <containerID>               #删除给定的容器id的容器。
 docker run <options: -d -it -p -v -e --network --name --restart=always> #创建container
 docker logs -f <containerID>          #查看容器id的日志
@@ -102,5 +104,26 @@ docker exec -it <containerID> bash    #进入容器内部
     4. 通过dockerfile先构建出一个镜像来   docker build -t smile-auth:1.0 .  
         smile-auth是镜像名字 后面是版本号
     5. 创建镜像完毕之后可以直接run一个容器  docker run -d -p 8100:8100 --name smile-auth1.0 --network smile-dev smile-auth:1.0
-    
+### 8. docker安装rabbitMq3.8.8
+    1. docker search rabbitmq 搜索镜像
+    2. docker pull rabbitmq:3.8.8 拉取镜像
+    3. docker run -d --name rabbitmq3.8.8 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=myvhost  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:3.8.8
+    4. 进入容器内部开启管理RabbitMq管理界面 docker exec -it <containerID> /bin/bash
+    5. rabbitmq-plugins enable rabbitmq_management
+    6. 解决Stats in management UI are disabled on this node 问题
+       cd /etc/rabbitmq/conf.d/   切换到对应目录
+       echo management_agent.disable_metrics_collector = false > management_agent.disable_metrics_collector.conf   修改 management_agent.disable_metrics_collector = false
+       exit 退出容器 然后docker重启容器  docker restart rabbitmq3.8.8
+
+> -d 后台运行容器；
+–name 指定容器名；
+-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；
+-v 映射目录或文件；
+–hostname 主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名,可以修改设置自己的标识这样方便追踪数据）；
+-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名,这个有啥意义暂且不知道；
+> RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）
+
+https://blog.csdn.net/qq_25288617/article/details/124964476 
+https://blog.csdn.net/qq_25112523/article/details/124444129
+https://www.cnblogs.com/zhengchunyuan/p/9253725.html  Rabbitmq的一些基础概概念
     

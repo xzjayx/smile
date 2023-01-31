@@ -1,0 +1,14 @@
+server:
+  port: 9611
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  rabbitmq:
+    host: 192.168.56.10
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: myvhost

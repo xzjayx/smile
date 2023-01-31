@@ -30,6 +30,7 @@ public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
                 return chain.filter(exchange);
             }
             String basePath = path.substring(0, path.lastIndexOf(URI));
+            //basePath = "/smile-"+ basePath.substring(1);
             ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, basePath).build();
             ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
             return chain.filter(newExchange);

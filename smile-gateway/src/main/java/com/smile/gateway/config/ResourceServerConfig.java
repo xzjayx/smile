@@ -41,12 +41,12 @@ public class ResourceServerConfig {
         //解决当gateway充当OAuth2ResourceServer的时候搭配，会出现hasRole配置无效的问题。
         http.oauth2ResourceServer().jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
-        //自定义处理JWT请求头过期或签名错误的结果
-        http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
         //对白名单路径，直接移除JWT请求头 在特定位置之前添加一个WebFilter
         // SecurityWebFiltersOrder.AUTHENTICATION 认证授权位置之前添加一个白名单移除JWT的过滤器,必须要过滤token，如
         // 果不过滤会发现后面白名单配置还是无法过滤成功 https://www.cnblogs.com/cndarren/p/15822130.html
         http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+        //自定义处理JWT请求头过期或签名错误的结果
+        http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.authorizeExchange()
                  //白名单配置
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()

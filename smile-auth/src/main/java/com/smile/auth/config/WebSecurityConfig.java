@@ -21,14 +21,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //formLogin().and().  httpBasic().and(). httpBasic和formLogin 区别就是一个前者是登录的的页面登录，后者是一个弹窗输入用户名密码 详细区别百度
-        http.formLogin().and().authorizeRequests()
+        http.csrf().disable().authorizeRequests()
                 //这里是允许让所有spring 监控的端点请求可以被允许访问WebEndpointProperties.class http://localhost:9401/actuator可以访问
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 // 除了公钥接口暴露，这里的这个接口是可以允许，直接访问 http://localhost:9401/rsa/publicKey，提供jwt RSA 公钥暴露接口
-                // 和网关配置白名单有区别那是从网关请求发起才能生效 "/oauth/**"
+                // 放开登录token令牌端点接口
                 .antMatchers("/rsa/publicKey").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
                 // 所有的请求都需要认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and()
+                .formLogin().disable();
     }
 
     /**
