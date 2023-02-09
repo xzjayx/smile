@@ -1,11 +1,17 @@
 package com.demo.rabbitmq.config;
 
+import com.demo.rabbitmq.enumeration.RoutingEnum;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author :xiezhi
@@ -15,6 +21,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DirectRabbitConfig {
+
+    @Qualifier("TestDirectExchange")
+    @Autowired 
+    private DirectExchange directExchange;
 
     //队列 起名：TestDirectQueue
     @Bean
@@ -26,7 +36,7 @@ public class DirectRabbitConfig {
          * exclusive: true 一般为false
          * 如果该参数为 true，则该队列仅允许创建它的连接进行写入或读取，同时当该链接关闭时，该队列被删除。
          * 该参数为true时，持久化参数上一个参数是无效的，因为链接关闭即释放队列。
-         * autoDelete:是否自动删除，如果true当没有生产者或者消费者使用此队列，该队列会自动删除。
+         * autoDelete:是否自动删除一般为false，如果true当没有生产者或者消费者使用此队列，该队列会自动删除。
          * */
         return new Queue("TestDirectQueue",true);
     }
@@ -44,12 +54,6 @@ public class DirectRabbitConfig {
         return BindingBuilder.bind(TestDirectQueue()).to(TestDirectExchange()).with("TestDirectRouting");
     }
 
-
-
-    @Bean
-    DirectExchange lonelyDirectExchange() {
-        return new DirectExchange("lonelyDirectExchange");
-    }
 
 
 }

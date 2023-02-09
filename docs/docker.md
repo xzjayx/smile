@@ -122,8 +122,15 @@ docker exec -it <containerID> bash    #进入容器内部
 –hostname 主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名,可以修改设置自己的标识这样方便追踪数据）；
 -e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名,这个有啥意义暂且不知道；
 > RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）
+---
+docker 安装rabbitmq 第二种方式（推荐）区别,自带管理界面
+1. docker pull rabbitmq:management (无法选择rabbitMq版本默认最新,目前是3.9.11)  
+   docker pull rabbitmq:3.8.8-management(选择了3.8.8rabbitmq的版本)
+2. docker run -d --name rabbitmq3.9.11 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq   -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:management
 
+---
 https://blog.csdn.net/qq_25288617/article/details/124964476 
 https://blog.csdn.net/qq_25112523/article/details/124444129
 https://www.cnblogs.com/zhengchunyuan/p/9253725.html  Rabbitmq的一些基础概概念
+https://blog.csdn.net/yaomingyang/article/details/102922480 Rabbitmq集群暂未实现
     

@@ -11,4 +11,11 @@ spring:
     port: 5672
     username: admin
     password: admin
-    virtual-host: myvhost
+    virtual-host: /
+    listener:
+      simple:
+        #消息设置成手动确认
+        acknowledge-mode: manual
+        #每个消费者每次监听时可拉取处理的消息数量，默认为250
+        prefetch: 250
+
