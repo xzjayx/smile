@@ -19,3 +19,6 @@ spring:
         #每个消费者每次监听时可拉取处理的消息数量，默认为250
         prefetch: 250
 
+smile:
+  weblog:
+    starter: true

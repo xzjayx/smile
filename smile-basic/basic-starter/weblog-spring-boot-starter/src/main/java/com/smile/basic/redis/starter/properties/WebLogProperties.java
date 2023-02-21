@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date : 2023/2/21
  */
 
-@ConfigurationProperties("zzcloud.weblog")
+//@ConfigurationProperties("zzcloud.weblog")
 public class WebLogProperties implements Serializable {
 
     public Boolean enabled;  //Boolean封装类，默认为null

@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>demo-rabbitmq</module>
+        <module>demo-test</module>
     </modules>
     <artifactId>smile-demo</artifactId>
 

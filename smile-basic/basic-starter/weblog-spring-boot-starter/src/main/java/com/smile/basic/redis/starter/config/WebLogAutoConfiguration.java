@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-@EnableConfigurationProperties({WebLogProperties.class})
-@ConditionalOnProperty(prefix = "zzcloud.weblog",value = "enabled",matchIfMissing = true)
+//@EnableConfigurationProperties({WebLogProperties.class})
+@ConditionalOnProperty(prefix = "smile.weblog.starter",value = "enabled",matchIfMissing = true)
 public class WebLogAutoConfiguration {
 
 
