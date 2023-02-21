@@ -1,4 +1,4 @@
-package com.smile.basic.redis.config;
+package com.smile.basic.redis.starter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

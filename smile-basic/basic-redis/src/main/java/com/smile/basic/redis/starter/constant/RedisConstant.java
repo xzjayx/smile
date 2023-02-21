@@ -1,4 +1,4 @@
-package com.smile.basic.redis.constant;
+package com.smile.basic.redis.starter.constant;
 
 /**
  * Redis常量

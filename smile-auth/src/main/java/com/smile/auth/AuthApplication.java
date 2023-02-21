@@ -3,12 +3,11 @@ package com.smile.auth;
 import com.smile.auth.common.AuthConstants;
 import com.smile.auth.config.AuthorizationServer;
 import com.smile.basic.core.constant.GlobalConstants;
-import com.smile.basic.redis.constant.RedisConstant;
+import com.smile.basic.redis.starter.constant.RedisConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *

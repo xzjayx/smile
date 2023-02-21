@@ -2,7 +2,7 @@ package com.smile.gateway;
 
 import com.smile.basic.core.config.common.IgnoreUrlsConfig;
 import com.smile.basic.core.constant.GlobalConstants;
-import com.smile.basic.redis.constant.RedisConstant;
+import com.smile.basic.redis.starter.constant.RedisConstant;
 import com.smile.gateway.common.GatewayConstants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
