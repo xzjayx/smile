@@ -67,7 +67,11 @@ docker exec -it <containerID> bash    #进入容器内部
 ### 3.docker自定义网络
     @see https://www.yiibai.com/docker/network_create.html
     docker自定义一个bridge的网络，为下面相关容器都在新建的网络下允许 
-    docker network create -d bridge smile-dev
+    docker network create -d bridge smile-dev   
+    但是当前这个只允许同一台主机内部通讯单节点运行，单节点运行；在实际项目中，我们往往需要部署多套软件：
+    比如组件需要使用集群化部署，或者一个项目程序本身就依赖了很多组件，为了存储与运行效率等方面，往往需要跨主机部署。
+    以后再说
+    
      
 ### 4.docker安装Redis(6.0.8)
     1. docker pull redis:6.0.8    拉取redis镜像
@@ -84,6 +88,9 @@ docker exec -it <containerID> bash    #进入容器内部
     1. docker pull mysql:${version} 如果不指定版本默认是最新版 
     2. 通过镜像Run容器container 
         docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 --name mysql8.0.31  --network smile-dev --restart=always --privileged=true -v /home/mysql/log:/var/log/mysql  -v /home/mysql/data:/var/lib/mysql -v /home/mysql/conf:/etc/mysql/conf.d  mysql:8.0.31
+        
+        docker run -d -p 9907:3306 -e MYSQL_ROOT_PASSWORD=1qaz2wsx@! --name jhsaas-mysql --restart=always --privileged=true -v /opt/tools/docker/jenhoo/mysql/conf/my.cnf:/etc/my.cnf -v /opt/tools/docker/jenhoo/mysql/data:/var/lib/mysql  mysql:5.7.18
+ 
     3. 进入容器内部 docker exec -it mysql8.0.31 /bin/bash
         mysql -u root -p  输入上述root设置密码 use mysql  之后修改密码和设置远程连接
         ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1qaz2wsx@!';
@@ -107,14 +114,19 @@ docker exec -it <containerID> bash    #进入容器内部
 ### 8. docker安装rabbitMq3.8.8
     1. docker search rabbitmq 搜索镜像
     2. docker pull rabbitmq:3.8.8 拉取镜像
-    3. docker run -d --name rabbitmq3.8.8 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=myvhost  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:3.8.8
+    3. docker run -d --name rabbitmq3.8.8 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq -v /home/rabbitmq/conf:/etc/rabbitmq -v /home/rabbitmq/log:/var/log/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=myvhost  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:3.8.8
     4. 进入容器内部开启管理RabbitMq管理界面 docker exec -it <containerID> /bin/bash
     5. rabbitmq-plugins enable rabbitmq_management
     6. 解决Stats in management UI are disabled on this node 问题
        cd /etc/rabbitmq/conf.d/   切换到对应目录
        echo management_agent.disable_metrics_collector = false > management_agent.disable_metrics_collector.conf   修改 management_agent.disable_metrics_collector = false
        exit 退出容器 然后docker重启容器  docker restart rabbitmq3.8.8
-
+    7. 集群见有道云笔记Rabbitmq
+这一步文件挂载可能会出现权限问题，需要先把挂载的文件给授权 例如：chmod a+rwx -R /home/rabbitmq/
+执行的命令参数说明：
+a：表示给所有用户
+rwx：表示可读可写可运行
+-R：表示递归赋权
 > -d 后台运行容器；
 –name 指定容器名；
 -p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；
@@ -126,11 +138,9 @@ docker exec -it <containerID> bash    #进入容器内部
 docker 安装rabbitmq 第二种方式（推荐）区别,自带管理界面
 1. docker pull rabbitmq:management (无法选择rabbitMq版本默认最新,目前是3.9.11)  
    docker pull rabbitmq:3.8.8-management(选择了3.8.8rabbitmq的版本)
-2. docker run -d --name rabbitmq3.9.11 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq   -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:management
+   docker pull rabbitmq:3.9.11-management(选择了3.9.11rabbitmq的版本，测试集群版本)
+2. docker run -d --name rabbitmq3.9.11 -p 5672:5672 -p 15672:15672 --network smile-dev --restart=always --privileged=true -v /home/rabbitmq/data:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin rabbitmq:management
 
 ---
-https://blog.csdn.net/qq_25288617/article/details/124964476 
-https://blog.csdn.net/qq_25112523/article/details/124444129
-https://www.cnblogs.com/zhengchunyuan/p/9253725.html  Rabbitmq的一些基础概概念
-https://blog.csdn.net/yaomingyang/article/details/102922480 Rabbitmq集群暂未实现
+
     
