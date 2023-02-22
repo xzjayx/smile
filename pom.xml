@@ -208,6 +208,7 @@
                     <include>jwt.jks</include>
                     <include>logback-spring.xml</include>
                     <include>**/*.ftl</include>
+                    <include>META-INF/spring.factories</include>
                 </includes>
             </resource>
             <resource>

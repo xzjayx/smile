@@ -1,8 +1,10 @@
 package com.demo.test;
 
 import com.smile.basic.core.constant.GlobalConstants;
+import com.smile.basic.weblog.starter.aspect.WebLogAspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author :xiezhi
@@ -12,7 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoTest {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoTest.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(DemoTest.class, args);
+        WebLogAspect aspect = context.getBean(WebLogAspect.class);
+        System.out.println(aspect);
     }
 
 

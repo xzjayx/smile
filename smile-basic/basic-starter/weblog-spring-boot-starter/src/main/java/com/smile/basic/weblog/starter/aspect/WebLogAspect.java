@@ -1,4 +1,4 @@
-package com.smile.basic.redis.starter.aspect;
+package com.smile.basic.weblog.starter.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -6,8 +6,6 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -26,13 +24,12 @@ import java.util.UUID;
 @Slf4j
 public class WebLogAspect {
 
-    //@Pointcut("execution(public * com.zking..controller.*.*(..))")
+    /**
+     * Pointcut("execution(public * com.zking..controller.*.*(..))")
+     * Controller.*(..) 当前controller当前包，在.*表示子包也包含
+     */
     @Pointcut("execution(* *..*Controller.*.*(..))")
     public void webLog(){}
-
-
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
@@ -44,7 +41,6 @@ public class WebLogAspect {
         log.info("开始服务:{}", request.getRequestURL().toString());
         log.info("客户端IP :{}" , request.getRemoteAddr());
         log.info("参数值 :{}", Arrays.toString(joinPoint.getArgs()));
-        redisTemplate.opsForValue().set(String.valueOf(System.currentTimeMillis()), UUID.randomUUID().toString());
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")

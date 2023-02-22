@@ -28,6 +28,7 @@
             <artifactId>weblog-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 
 </project>

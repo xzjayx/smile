@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.smile.basic.redis.starter.config.WebLogAutoConfiguration
+  com.smile.basic.weblog.starter.config.WebLogAutoConfiguration

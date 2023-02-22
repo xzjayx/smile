@@ -1,7 +1,7 @@
-package com.smile.basic.redis.starter.config;
+package com.smile.basic.weblog.starter.config;
 
-import com.smile.basic.redis.starter.aspect.WebLogAspect;
-import com.smile.basic.redis.starter.properties.WebLogProperties;
+import com.smile.basic.weblog.starter.aspect.WebLogAspect;
+import com.smile.basic.weblog.starter.properties.WebLogProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  *   https://www.cnblogs.com/xiaomaomao/p/13934688.html
  * 3 @ConditionalOnProperty(prefix = "zzcloud.weblog",value = "enabled", matchIfMissing = true)：
  *   matchIfMissing属性：默认情况下matchIfMissing为false，也就是说如果未进行属性配置，则自动配置不生效。
- *   如果matchIfMissing为true，然后结合prefix以及value来判断如果配置文件内容对应上了value值生效，否则则不生效。
+ *   如果matchIfMissing为true，则表示如果没有对应的属性配置，则自动配置默认生效
  *   https://blog.csdn.net/xzjayx/article/details/124419978
  * 4 @ConditionalOnMissingBean 在@bean定义上，它的作用就是在容器加载它作用的bean时，检查容器中是否存在目标类型
  *  （ConditionalOnMissingBean注解的value值）的bean了，如果存在这跳过原始bean的BeanDefinition加载动作。
@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-//@EnableConfigurationProperties({WebLogProperties.class})
-@ConditionalOnProperty(prefix = "smile.weblog.starter",value = "enabled",matchIfMissing = true)
+@EnableConfigurationProperties({WebLogProperties.class})
+@ConditionalOnProperty(prefix = "smile.weblog",value = "enabled", matchIfMissing = true)
 public class WebLogAutoConfiguration {
 
 
