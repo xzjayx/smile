@@ -1,3 +1,4 @@
+/*
 package com.smile.auth.controller;
 
 
@@ -21,16 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.Map;
 
+*/
 /**
  * 自定义Oauth2获取令牌接口仅仅封装返回参数
  * Created by xiezhi on 2020/7/17.
- */
+ *//*
+
 @Slf4j
 @RestController
 @Api(tags = "授权模块")
 public class AuthController {
 
-    /**
+    */
+/**
      * 默认是spring security oauth2包里面暴露出来的请求，一般来说会有6个默认请求，这6个在
      * /oauth/authorize ：授权端点。
      * /oauth/token ：令牌端点。 org.springframework.security.oauth2.provider.endpoint.TokenEndpoint
@@ -51,11 +55,13 @@ public class AuthController {
      * http://127.0.0.1:8080/oauth/token
      *
      *
-     * */
+     * *//*
+
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
-    /**
+    */
+/**
      * Oauth2登录认证  密码模式获取JWT令牌 这里仅仅是封装返回结果而已可有可无。原结果如下
      * {
      *     "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJleHAiOjE2NzUwNzI4MzksInVzZXJfbmFtZSI6InpoYW5nc2FuIiwianRpIjoiNWQ2Yzc1NjYtMTRiYy00ZGVlLWE0MWQtNGEyN2NmMDI2OWRhIiwiY2xpZW50X2lkIjoiY2xpZW50LWFwcCIsInNjb3BlIjpbImFsbCJdfQ.RHsGr6eDqqUu2RsrprZqt446TuqPouO_UB0gGu-kmI5n6brW39yKtREHe-Cbjl04vYnZT0-9wmG1z3eHC4ZAz4FPBPVS6nDP81O70v42npypPLsl-uFxpWiHaiaiZWZ13qWeGi2qqVoPjCHZN1JiwbSQoNUX_bLX4LCEBcsxWy2mmHHjqh4uvte55W2YNQj-971hCzXtlCNdO6PWe4o9wvGqg3k-8v-SD9_vmW1e_d-iWmTlixe1cogfLoT1syk2vctWnsxwqsnm5Ce7OB0nQmHRoxq0yy6-8_BzhDg6FssiUhwHPf15Cczdqo7gZ9on1wahBAQbJPDKEjN6vb2z4w",
@@ -66,7 +72,8 @@ public class AuthController {
      *     "id": "1",
      *     "jti": "5d6c7566-14bc-4dee-a41d-4a27cf0269da"
      * }
-     */
+     *//*
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ApiOperationSupport(ignoreParameters={"parameters","PostAccessToken"})
     @ApiOperation(value = "密码模式登录",httpMethod = "POST")
@@ -81,7 +88,6 @@ public class AuthController {
         @ApiImplicitParam(name = "password", value = "密码", required = true, defaultValue = "123456", dataTypeClass = String.class,paramType = "query")
     })
     public Result<Oauth2TokenDto> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        System.out.println(111111);
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
                 .token(oAuth2AccessToken.getValue())
@@ -92,3 +98,4 @@ public class AuthController {
         return Result.success(oauth2TokenDto);
     }
 }
+*/
