@@ -68,11 +68,13 @@ docker exec -it <containerID> bash    #进入容器内部
     @see https://www.yiibai.com/docker/network_create.html
     docker自定义一个bridge的网络，为下面相关容器都在新建的网络下允许 
     docker network create -d bridge smile-dev   
+    建立网络名docker_net，并指定网段
+    docker network create --driver bridge --subnet 172.18.0.0/24  --gateway 172.18.0.1 saas  
     但是当前这个只允许同一台主机内部通讯单节点运行，单节点运行；在实际项目中，我们往往需要部署多套软件：
     比如组件需要使用集群化部署，或者一个项目程序本身就依赖了很多组件，为了存储与运行效率等方面，往往需要跨主机部署。
     以后再说
-    
-     
+    可以是--network hosts 或者把创建router填加映射
+    https://blog.csdn.net/leftfist/article/details/127810918
 ### 4.docker安装Redis(6.0.8)
     1. docker pull redis:6.0.8    拉取redis镜像
     2. mkdir /home/redis    创建文件夹为了被挂载配置互通有无

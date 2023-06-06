@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties({WebLogProperties.class})
 @ConditionalOnProperty(prefix = "smile.weblog",value = "enabled", matchIfMissing = true)
+//@ConditionalOnProperty(prefix = "filter",name = "loginFilter",havingValue = "true") 另外一种形式
 public class WebLogAutoConfiguration {
 
 
