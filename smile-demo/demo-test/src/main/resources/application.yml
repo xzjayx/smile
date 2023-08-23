@@ -1,3 +1,7 @@
-smile:
-  weblog:
-    enabled: true
+spring:
+  profiles:
+    active: kafka
+  application:
+    name: demo-test
+server:
+  port: 9085
