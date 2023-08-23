@@ -4,6 +4,9 @@ import cn.hutool.core.util.ObjectUtil;
 import com.smile.basic.core.config.exception.CommonRuntimeException;
 import com.smile.basic.core.enums.ResultEnum;
 
+/**
+ * @author xiezhi
+ */
 public class AssertUtil {
 
     public static void assertNotNull(Object obj){

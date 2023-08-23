@@ -1,4 +1,4 @@
-package com.smile.basic.weblog.starter.constant;
+package com.smile.basic.redis.constant;
 
 /**
  * @author :xiezhi

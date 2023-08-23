@@ -1,7 +1,7 @@
 package com.smile.auth.service;
 
 import cn.hutool.core.collection.CollUtil;
-import com.smile.basic.weblog.starter.constant.AuthConstant;
+import com.smile.basic.redis.constant.AuthConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

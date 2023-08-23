@@ -144,7 +144,7 @@
                 <!-- default Spring profiles -->
                 <spring.profiles.active>dev</spring.profiles.active>
                 <nacosNamespace>764f9c7a-1874-4c91-985b-0678754a8208</nacosNamespace>
-                <nacosServer>192.168.56.10:8848</nacosServer>
+                <nacosServer>127.0.0.1:8848</nacosServer>
             </properties>
         </profile>
 
@@ -182,14 +182,35 @@
                 <directory>src/main/resources</directory>
                 <!-- 处理文件时替换文件中的变量 -->
                 <filtering>true</filtering>
-                <!-- 打包时所包含得文件 -->
                 <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <!-- 打包包含xml-->
+            <!--<resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>-->
+
+
+
+
+<!--            <resource>
+                <directory>src/main/resources</directory>
+                &lt;!&ndash; 处理文件时替换文件中的变量 &ndash;&gt;
+                <filtering>true</filtering>
+                &lt;!&ndash; 打包时所包含得文件 &ndash;&gt;
+                &lt;!&ndash;<includes>
                     <include>bootstrap.yml</include>
                     <include>bootstrap-${spring.profiles.active}.yml</include>
                     <include>application.yml</include>
                     <include>application-${spring.profiles.active}.yml</include>
-                </includes>
-            </resource>
+                </includes>&ndash;&gt;
+            </resource>-->
+
             <!--<resource>
                <directory>src/main/resources</directory>
                <excludes>
@@ -203,22 +224,24 @@
                </excludes>
            </resource>-->
 
-            <resource>
+            <!--<resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <!-- 启动需要加入的配置文件因为spring结合了maven指定了profile，需要手动配置-->
+                    &lt;!&ndash; 启动需要加入的配置文件因为spring结合了maven指定了profile，需要手动配置&ndash;&gt;
                     <include>jwt.jks</include>
                     <include>logback-spring.xml</include>
                     <include>**/*.ftl</include>
                     <include>META-INF/spring.factories</include>
                 </includes>
-            </resource>
-            <resource>
+            </resource>-->
+
+            <!-- 打包包含xml-->
+            <!--<resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
-            </resource>
+            </resource>-->
         </resources>
         <plugins>
             <plugin>

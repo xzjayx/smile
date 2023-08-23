@@ -1,4 +1,4 @@
-package com.smile.basic.weblog.starter.config;
+package com.smile.basic.redis.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -20,7 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //formLogin().and().  httpBasic().and(). httpBasic和formLogin 区别就是一个前者是登录的的页面登录，后者是一个弹窗输入用户名密码 详细区别百度
+        //formLogin().and().  httpBasic().and(). httpBasic和formLogin
+        // 区别就是一个前者是登录的的页面登录，后者是一个弹窗输入用户名密码 详细区别百度
         http.csrf().disable().authorizeRequests()
                 //这里是允许让所有spring 监控的端点请求可以被允许访问WebEndpointProperties.class http://localhost:9401/actuator可以访问
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()

@@ -1,3 +1,4 @@
+/*
 package com.smile.basic.core.config.common;
 
 
@@ -25,13 +26,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * /doc.html
  * https://doc.xiaominfo.com/knife4j/documentation/dynamicRequestParameter.html
  * https://blog.csdn.net/qingti_/article/details/124555685
  * Knife4j（Swagger2）的配置
- */
+ *//*
 
+
+*/
 /**
  * lombok
  * @NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor
@@ -51,48 +55,67 @@ import java.util.List;
  *                     smile:
  *                       enable: true
  *
- * */
+ * *//*
+
 
 @Configuration
 @EnableSwagger2WebMvc
 @ConditionalOnProperty(prefix = "knife4j.smile",name = "enable",havingValue = "true")
 public class Knife4jConfiguration {
 
-    /**
+    */
+/**
      * 分组名称
-     */
+     *//*
+
     private String groupName = "base-knife4j";
-    /**
+    */
+/**
      * 主机名
-     */
+     *//*
+
     private String host = "http://java.qingtian.cn";
-    /**
+    */
+/**
      * 标题
-     */
+     *//*
+
     private String title = "API在线文档工具";
-    /**
+    */
+/**
      * 简介
-     */
+     *//*
+
     private String description = "Knife4j演示";
-    /**
+    */
+/**
      * 服务条款URL
-     */
+     *//*
+
     private String termsOfServiceUrl = "http://www.apache.org/licenses/LICENSE-2.0";
-    /**
+    */
+/**
      * 联系人
-     */
+     *//*
+
     private String contactName = "项目研发部";
-    /**
+    */
+/**
      * 联系网址
-     */
+     *//*
+
     private String contactUrl = "http://java.qingtian.cn";
-    /**
+    */
+/**
      * 联系邮箱
-     */
+     *//*
+
     private String contactEmail = "java@qingtian.cn";
-    /**
+    */
+/**
      * 版本号
-     */
+     *//*
+
     private String version = "1.0.0";
 
 
@@ -127,3 +150,4 @@ public class Knife4jConfiguration {
                 .build();
     }
 }
+*/
