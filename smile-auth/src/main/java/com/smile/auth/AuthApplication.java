@@ -32,7 +32,7 @@ public class AuthApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AuthApplication.class, args);
-        AuthorizationServer contextBean = context.getBean(AuthorizationServer.class);
-        System.out.println(contextBean);
+//        AuthorizationServer contextBean = context.getBean(AuthorizationServer.class);
+//        System.out.println(contextBean);
     }
 }

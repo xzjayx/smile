@@ -132,9 +132,9 @@
     <!--开发环境:打印控制台-->
     <springProfile name="dev,ddev,local,test">
         <root level="INFO">
-<!--            <appender-ref ref="FILEERROR" />-->
-<!--            <appender-ref ref="FILEWARN" />-->
-<!--            <appender-ref ref="FILEINFO" />-->
+            <!--<appender-ref ref="FILEERROR" />
+            <appender-ref ref="FILEWARN" />
+            <appender-ref ref="FILEINFO" />-->
             <appender-ref ref="CONSOLE" />
         </root>
     </springProfile>
