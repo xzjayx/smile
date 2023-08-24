@@ -13,6 +13,8 @@ spring:
   profiles:
     #采用灵活的参数配置 在pom.xml中定义不同的环境 打包时指定配置文件打包 @spring.profiles.active@
     active: @spring.profiles.active@
+
+
   cloud:
     nacos:
       discovery:
