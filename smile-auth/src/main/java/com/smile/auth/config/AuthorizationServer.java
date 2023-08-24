@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -44,6 +45,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenEnhancer jwtTokenEnhancer;
     private final PasswordEncoder passwordEncoder;
+
 
 
     //clientId：（必填）客户端ID。 --> client_id
@@ -138,14 +140,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     @SneakyThrows
     @Bean
     public KeyPair keyPair() {
-        //从classpath下的证书中获取秘钥对
+        //从classpath下的证书中获取秘钥对 resourceLoader.getResource("")
         ClassPathResource pathResource = new ClassPathResource("jwt.jks");
-       InputStream inputStream = pathResource.getInputStream();
-
-
-
+        InputStream inputStream = pathResource.getInputStream();
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new InputStreamResource(inputStream), "123456".toCharArray());
-        KeyPair keyPair = keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
-        return keyPair;
+        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
     }
 }
