@@ -26,18 +26,23 @@ public class IgnoreUrlsConfig {
 
 
 
-    /*
-      现在有两个请求比如A请求 http://localhost:9527/auth/oauth/token，和B请求 http://localhost:9527/actuator/bean
+
+/*  现在有两个请求比如A请求 http://localhost:9527/auth/oauth/token，和B请求 http://localhost:9527/actuator/bean
     这两个URL只有中间一个auth区别，由于gateway配置文件对auth做了动态api匹配 routes#配置路由路径 找到对应的oauth服务名
-    过滤之后A请求会变成--->断言 http://smile-auth/auth/oauth/token (http://192.168.5.1:8100/auth/actuator/bean) ->截取
+    过滤之后A请求会变成--->断言 http://smile-auth/auth/oauth/token (http://192.168.5.1:8100/auth/oauth/token) ->截取
     http://92.168.5.1:8100/oauth/token   而B请求因为没有url谓词匹配还是原来的请求  见spring gateway 路由配置
 
-    * 这个白名单配置作用有个细节：
+    这个白名单配置（主要为了防止没有 暂未登录或token已经过期 401）作用有个细节：
 
-         举例子如果配置 /actuator/**  配置后者 /api/actuator/**
-    *    白名单处理逻辑：首先对进入网关的请求的URL进行白名单配置过滤URL匹配，如果请求配对成功之后，再会走gateway route的路由配置（见上）
-               路由转发完毕之后，就会进入目标服务，再看目标服务是否配置过spring security URL过滤之类的一般来说除了授权服务都不会配置
-               一般的资源服务就会直接访问，而配置过spring security 安全过滤的服务则需要在进行URL匹配，成功即可访问。
+    举例子如果配置 /actuator*//**  配置后者 /api/actuator/**
+    白名单处理逻辑：首先对进入网关的请求的URL进行白名单配置过滤URL匹配，如果请求配对成功之后，再会走gateway route的路由配置（见上）
+    路由转发完毕之后，就会进入目标服务，再看目标服务是否配置过spring security URL过滤之类的一般来说除了授权服务都不会配置
+    一般的资源服务就会直接访问，而配置过spring security 安全过滤的服务则需要在进行URL匹配，成功即可访问。
+
+
+     http://localhost:9527/smile-auth/v2/api-docs --->白名单过滤走路由配置--->
+     http://92.168.5.1:8100/v2/api-docs
+
 
      */
 

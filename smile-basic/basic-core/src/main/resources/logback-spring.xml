@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--定义日志文件的存储地址 -->
+
+
+    <!--为了防止进程退出时，内存中的数据丢失，请加上此选项-->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+    <!--定义日志文件的存储地址本地 -->
     <property name="LOG_HOME" value="./logs" />
+    <!-- 日志输出文件所在位置服务器 -->
+    <!--<property name="LOG_HOME" value="/var/logs"/>-->
 
     <!--指定property属性变量  https://blog.csdn.net/xiaoxiao_su123/article/details/106523713-->
     <springProperty name="SPRING_APPLICATION_NAME"  scope="context"  source="spring.application.name"/>

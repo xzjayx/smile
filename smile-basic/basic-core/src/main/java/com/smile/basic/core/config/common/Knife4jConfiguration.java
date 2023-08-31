@@ -65,7 +65,7 @@ public class Knife4jConfiguration {
        /*主机名*/
      
 
-    private String host = "http://java.qingtian.cn";
+    private String host = "https://www.baidu.com";
  
 /*       标题*/
      
@@ -90,12 +90,12 @@ public class Knife4jConfiguration {
      /*  联系网址*/
      
 
-    private String contactUrl = "http://java.qingtian.cn";
+    private String contactUrl = "https://www.baidu.com";
  
      /*  联系邮箱*/
      
 
-    private String contactEmail = "java@qingtian.cn";
+    private String contactEmail = "578241608@qq.com";
 
      
      
