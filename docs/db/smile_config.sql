@@ -14,10 +14,10 @@
  Date: 31/01/2023 16:42:36
 */
 -- CREATE DATABASE IF NOT EXISTS smile_config default charset utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-CREATE DATABASE IF NOT EXISTS smile_config default charset utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS smile_config default charset utf8mb4 COLLATE utf8_general_ci;
 USE smile_config;
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------

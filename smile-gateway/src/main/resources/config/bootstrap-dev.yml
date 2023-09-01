@@ -49,7 +49,6 @@ smile:
       urls: #配置白名单路径：可以从网关访问但是这几个匹配的URL可以不经过token认证
         - "/**/actuator/**"
         - "/smile-auth/oauth/token"
-        - "/smile-auth/oauth/password"
         - "/smile-auth/rsa/publicKey"
         - "/doc.html"
         - "/webjars/**"

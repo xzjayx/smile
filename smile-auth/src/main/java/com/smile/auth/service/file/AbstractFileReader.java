@@ -8,6 +8,8 @@ import java.io.InputStream;
 /**
  * <p> Description:AbstractFileReader</p>
  * <p> CreationTime: 2023/1/12 15:50
+ * file读取暂未用到
+ *
  */
 @Slf4j
 public abstract class AbstractFileReader {

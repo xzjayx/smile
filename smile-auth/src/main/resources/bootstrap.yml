@@ -28,6 +28,14 @@ spring:
         namespace: ${common.nacos.config.namespace:public}
 
 
+#启用knife4j增强模式
+knife4j:
+  #启用knife4j的配置@Configuration
+  smile:
+    enable: true
+  enable: true
+
+
 
 
 

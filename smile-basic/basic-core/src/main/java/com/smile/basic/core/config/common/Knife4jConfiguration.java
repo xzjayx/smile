@@ -17,8 +17,7 @@ import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -110,6 +109,33 @@ public class Knife4jConfiguration {
 
     @Bean
     public Docket docket() {
+
+        //schema https://doc.xiaominfo.com/docs/features/oauth2
+/*      开启会导致knife4j 前端跨域暂不知道怎么解决
+        List<GrantType> grantTypes=new ArrayList<>();
+        //密码模式
+        String passwordTokenUrl="http://127.0.0.1:9527/smile-auth/oauth/token";
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant=
+                new ResourceOwnerPasswordCredentialsGrant(passwordTokenUrl);
+        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
+
+        OAuth oAuth=new OAuthBuilder().name("oauth2")
+                .grantTypes(grantTypes).build();
+        //context
+        //scope方位
+        List<AuthorizationScope> scopes=new ArrayList<>();
+        scopes.add(new AuthorizationScope("all","read all resources"));
+
+
+        SecurityReference securityReference=new SecurityReference("oauth2",scopes.toArray(new AuthorizationScope[]{}));
+        SecurityContext securityContext=new SecurityContext(CollectionUtil.newArrayList(securityReference),PathSelectors.ant("/api/**"));
+        //schemas
+        List<SecurityScheme> securitySchemes=CollectionUtil.newArrayList(oAuth);
+        //securyContext
+        List<SecurityContext> securityContexts=CollectionUtil.newArrayList(securityContext);*/
+
+
+
         String groupName = "1.0.0";
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 //.host(host)
@@ -119,6 +145,7 @@ public class Knife4jConfiguration {
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
+                //.securityContexts(securityContexts).securitySchemes(securitySchemes)
                 .apiInfo(apiInfo());
         return docket;
     }

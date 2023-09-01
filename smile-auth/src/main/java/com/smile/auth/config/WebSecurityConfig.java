@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 除了公钥接口暴露，这里的这个接口是可以允许，直接访问 http://localhost:9401/rsa/publicKey，提供jwt RSA 公钥暴露接口
                 // 放开登录token令牌端点接口
                 .antMatchers("/rsa/publicKey").permitAll()
-                .antMatchers("/oauth/password").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 // 所有的请求都需要认证

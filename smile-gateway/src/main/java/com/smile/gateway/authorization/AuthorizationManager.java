@@ -38,7 +38,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         URI uri = authorizationContext.getExchange().getRequest().getURI();
         Object obj = redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP, uri.getPath());
         List<String> authorities = Convert.toList(String.class,obj);
-        authorities = authorities.stream().map(i -> i = GlobalConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
+        authorities = authorities.stream().map(i -> GlobalConstants.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(Authentication::isAuthenticated)
