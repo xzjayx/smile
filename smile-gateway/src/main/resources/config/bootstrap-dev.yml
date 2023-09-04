@@ -47,6 +47,7 @@ smile:
   gateway:
     ignore:
       urls: #配置白名单路径：可以从网关访问但是这几个匹配的URL可以不经过token认证
+        - "/actuator/**"
         - "/**/actuator/**"
         - "/smile-auth/oauth/token"
         - "/smile-auth/rsa/publicKey"
