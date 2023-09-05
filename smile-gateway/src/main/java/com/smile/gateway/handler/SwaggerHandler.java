@@ -43,6 +43,11 @@ public class SwaggerHandler {
                 Optional.ofNullable(uiConfiguration).orElse(UiConfigurationBuilder.builder().build()), HttpStatus.OK));
     }
 
+    /**
+     * 这个接口的作用是获取其他模块的数据
+     * 每次刷新接口文档的时候都会进行调用这个方法获取其他模块的数据
+     * @return
+     */
     @GetMapping("/swagger-resources")
     public Mono<ResponseEntity> swaggerResources() {
         return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));

@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//name/value:表示需要请求到的服务名，直接冲注册中心去找服务名然后解析出来的ip:port 直接访问不经过网关 contextId用户当前feign的bean名
+/**
+ * @author xiezhi
+ */ //name/value:表示需要请求到的服务名，直接冲注册中心去找服务名然后解析出来的ip:port
+// 直接访问不经过网关 contextId用户当前feign的bean名
 @FeignClient(name = "smile-sys",contextId = "user")
 public interface UserFeignClient {
 

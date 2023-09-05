@@ -1,0 +1,57 @@
+common:
+  nacos:
+    config:
+      #Nacos 服务地址
+      server: @nacosServer@
+      #Nacos 命名空间
+      namespace: @nacosNamespace@
+      #share config profile
+      share: ${spring.profiles.active}
+spring:
+  application:
+    name: smile-monitor
+  security:
+    user:
+      name: admin
+      password: 123456
+  profiles:
+    #采用灵活的参数配置 在pom.xml中定义不同的环境 打包时指定配置文件打包 @spring.profiles.active@
+    active: @spring.profiles.active@
+
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${common.nacos.config.server}
+        namespace: ${common.nacos.config.namespace:public}
+        metadata:
+          user.name: ${spring.security.user.name}
+          user.password: ${spring.security.user.password}
+      config:
+        file-extension: yml
+        shared-configs:
+          - data-id: application-${common.nacos.config.share}.${spring.cloud.nacos.config.file-extension}
+        server-addr: ${common.nacos.config.server}
+        namespace: ${common.nacos.config.namespace:public}
+
+
+server:
+  port: 9540
+
+
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        server-addr: ${common.nacos.config.server}
+#        # 命名空间
+#        namespace: ${common.nacos.config.namespace:public}
+#      config:
+#        # 配置中心地址
+#        server-addr: ${common.nacos.config.server}
+#        namespace: ${common.nacos.config.namespace:public}
+#        # 配置文件格式
+#        file-extension: yml
+#        # 共享配置
+#        shared-configs:
+#          - data-id: application-${common.nacos.config.share:${spring.profiles.active}}.${spring.cloud.nacos.config.file-extension}

@@ -13,6 +13,8 @@ spring:
   profiles:
     #采用灵活的参数配置 在pom.xml中定义不同的环境 打包时指定配置文件打包 @spring.profiles.active@
     active: @spring.profiles.active@
+
+
   cloud:
     nacos:
       discovery:
@@ -24,6 +26,14 @@ spring:
           - data-id: application-${common.nacos.config.share}.${spring.cloud.nacos.config.file-extension}
         server-addr: ${common.nacos.config.server}
         namespace: ${common.nacos.config.namespace:public}
+
+
+#启用knife4j增强模式
+knife4j:
+  #启用knife4j的配置@Configuration
+  smile:
+    enable: true
+  enable: true
 
 
 

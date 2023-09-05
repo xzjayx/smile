@@ -14,7 +14,7 @@
         <module>smile-auth-resource</module>
         <module>smile-sys</module>
         <module>smile-api</module>
-        <module>smile-demo</module>
+        <module>smile-monitor</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -30,6 +30,7 @@
         <mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
         <velocity.version>2.3</velocity.version>
         <knife4j-boot-starter.version>2.0.9</knife4j-boot-starter.version>
+        <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
     </properties>
 
 
@@ -41,10 +42,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -66,6 +69,7 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt.version}</version>
         </dependency>-->
+
     </dependencies>
 
 
@@ -125,6 +129,19 @@
                 <version>${velocity.version}</version>
             </dependency>
 
+            <!--spring boot admin 服务端-->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
 
         </dependencies>
 
@@ -142,7 +159,7 @@
                 <!-- default Spring profiles -->
                 <spring.profiles.active>dev</spring.profiles.active>
                 <nacosNamespace>764f9c7a-1874-4c91-985b-0678754a8208</nacosNamespace>
-                <nacosServer>192.168.56.10:8848</nacosServer>
+                <nacosServer>127.0.0.1:8848</nacosServer>
             </properties>
         </profile>
 
@@ -173,22 +190,37 @@
 
 
 
-    <!-- 配合profiles中配置的环境文件使用，不配置项目启动报错 主要是filtering作用 -->
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <!-- 处理文件时替换文件中的变量 -->
+                <!-- 配合profiles中配置的环境文件使用，不配置项目启动报错 主要是filtering作用 -->
                 <filtering>true</filtering>
                 <!-- 打包时所包含得文件 -->
                 <includes>
                     <include>bootstrap.yml</include>
-                    <include>bootstrap-${spring.profiles.active}.yml</include>
-                    <include>application.yml</include>
-                    <include>application-${spring.profiles.active}.yml</include>
                 </includes>
             </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <!-- 打包包含xml-->
             <!--<resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>-->
+
+
+   <!--         <resource>
                <directory>src/main/resources</directory>
                <excludes>
                    &lt;!&ndash; 打包时排除文件&ndash;&gt;
@@ -201,35 +233,35 @@
                </excludes>
            </resource>-->
 
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <!-- 启动需要加入的配置文件因为spring结合了maven指定了profile，需要手动配置-->
-                    <include>jwt.jks</include>
-                    <include>logback-spring.xml</include>
-                    <include>**/*.ftl</include>
-                    <include>META-INF/spring.factories</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
+
         </resources>
+
+
+
         <plugins>
-            <plugin>
+
+            <!-- maven-deploy-plugin一般用于将项目发布到远程仓库 -->
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
-            </plugin>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>-->
+
+
+
+
+            <!-- 指定jdk版本，和指定编码 -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <!-- 上述filtering替换有时候可能有问题
@@ -242,29 +274,62 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <delimiters>
                         <delimiter>@</delimiter>
                     </delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
             </plugin>
-            <!-- 部署打包找不到主类错误 No main manifest attribute, in XXX.jar-->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.7.5</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
-                            <goal>build-info</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+
+
         </plugins>
+
+       <!-- <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.7.5</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>-->
     </build>
+
+
+    <!--    结合 maven-deploy-plugin
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://host:port/*/</url>
+        </snapshotRepository>
+    </distributionManagement>-->
+
 
     <repositories>
         <repository>

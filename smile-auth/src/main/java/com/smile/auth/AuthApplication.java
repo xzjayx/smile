@@ -3,7 +3,7 @@ package com.smile.auth;
 import com.smile.auth.common.AuthConstants;
 import com.smile.auth.config.AuthorizationServer;
 import com.smile.basic.core.constant.GlobalConstants;
-import com.smile.basic.weblog.starter.constant.RedisConstant;
+import com.smile.basic.redis.constant.RedisConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -11,7 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  *
- * #https://blog.csdn.net/qq_45136501/article/details/127792779  https://blog.csdn.net/m0_67266787/article/details/124033785 配置文件的加载顺序
+ * #https://blog.csdn.net/qq_45136501/article/details/127792779
+ * https://blog.csdn.net/m0_67266787/article/details/124033785 配置文件的加载顺序
  * #http://www.qb5200.com/article/476665.html springboot结合maven配置不同环境的profile，
  * #如果项目中有bootstrap.yml系统参数配置则不适用 @see https://blog.csdn.net/Amy126/article/details/106016308/
  * 如果项目中非要使用，则可以参考 Maven的一些filtering特性
@@ -31,7 +32,7 @@ public class AuthApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AuthApplication.class, args);
-        AuthorizationServer contextBean = context.getBean(AuthorizationServer.class);
-        System.out.println(contextBean);
+//        AuthorizationServer contextBean = context.getBean(AuthorizationServer.class);
+//        System.out.println(contextBean);
     }
 }

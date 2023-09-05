@@ -40,7 +40,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         for (String ignoreUrl : ignoreUrls) {
             if (pathMatcher.match(ignoreUrl, uri.getPath())) {
                 //会进来两次同一次URL匹配成功之后会走两次，暂时不知道为什么
-                log.info(String.format("The URL will be ignored URL:%s",uri.getPath()));
+                //log.info(String.format("The URL will be ignored URL:%s",uri.getPath()));
                 request = exchange.getRequest().mutate().header("Authorization", "").build();
                 exchange = exchange.mutate().request(request).build();
                 return chain.filter(exchange);
