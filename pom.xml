@@ -16,7 +16,7 @@
         <module>smile-api</module>
         <module>smile-monitor</module>
         <!-- 测试模块-->
-        <module>smile-demo</module>
+<!--        <module>smile-demo</module>-->
     </modules>
     <packaging>pom</packaging>
 
