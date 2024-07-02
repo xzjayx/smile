@@ -14,6 +14,13 @@ systemctl stop firewalld.service			   #若嫌麻烦可以直接关闭防火墙�
 firewall-cmd --zone=public --list-ports		   #查看防火墙所有开放的端口
 firewall-cmd --state	    #查看防火墙状态
 systemctl status firewalld  #查看防火墙状态
+
+-----linux-centos7设置GTM+8中国时区
+sudo cp /etc/localtime /etc/localtime.bak  #备份系统默认时区
+sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  #修改中国时区
+sudo systemctl restart rsyslog
+sudo systemctl restart crond   #生效重启，可输入date查看时间
+-----
 ```
 2. docker常用命令
 >关于挂载V的特别说明：-v挂载需要主机和docker容器对应，如果docker容器是一个具体文件，那么主机也必须存在对应的文件，而不能是一个文件夹，挂载默认是文件夹。但也可以是文件但如果是文件那么也必须和文件对应
